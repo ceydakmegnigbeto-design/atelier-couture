@@ -1,0 +1,99 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Commander {{ creation.nom }}</title>
+    <link rel="stylesheet" href="{% static 'boutique/style.css' %}">
+</head>
+<body>
+
+<header class="navbar">
+    <a href="{% url 'accueil' %}" class="logo">Atelier Élégance</a>
+
+    <nav>
+        <a href="{% url 'accueil' %}">Accueil</a>
+        <a href="{% url 'contact' %}">Contact</a>
+    </nav>
+</header>
+
+<main class="commande-page">
+    <section class="commande-resume">
+        <img src="{{ creation.image.url }}" alt="{{ creation.nom }}">
+        <div class="commande-resume-info">
+            <p class="sur-titre">Votre sélection</p>
+            <h1>{{ creation.nom }}</h1>
+            <p class="commande-categorie">{{ creation.categorie }}</p>
+            <p class="commande-prix">{{ creation.prix }} FCFA</p>
+            <p>{{ creation.description }}</p>
+        </div>
+    </section>
+
+    <section class="commande-formulaire">
+        <div class="commande-card">
+            <p class="sur-titre">Commande sur mesure</p>
+            <h2>Remplissez vos informations</h2>
+            <p class="texte-intro">
+                Donnez-nous les informations nécessaires pour préparer votre création.
+            </p>
+
+            <form method="post">
+                {% csrf_token %}
+                {{ formulaire.non_field_errors }}
+
+                <div class="form-grid">
+                    <div class="champ">
+                        {{ formulaire.nom_client.label_tag }}
+                        {{ formulaire.nom_client }}
+                        {{ formulaire.nom_client.errors }}
+                    </div>
+
+                    <div class="champ">
+                        {{ formulaire.telephone.label_tag }}
+                        {{ formulaire.telephone }}
+                        {{ formulaire.telephone.errors }}
+                    </div>
+
+                    <div class="champ">
+                        {{ formulaire.email.label_tag }}
+                        {{ formulaire.email }}
+                        {{ formulaire.email.errors }}
+                    </div>
+
+                    <div class="champ">
+                        {{ formulaire.taille.label_tag }}
+                        {{ formulaire.taille }}
+                        {{ formulaire.taille.errors }}
+                    </div>
+
+                    <div class="champ">
+                        {{ formulaire.couleur.label_tag }}
+                        {{ formulaire.couleur }}
+                        {{ formulaire.couleur.errors }}
+                    </div>
+
+                    <div class="champ champ-large">
+                        {{ formulaire.mesures.label_tag }}
+                        {{ formulaire.mesures }}
+                        {{ formulaire.mesures.errors }}
+                    </div>
+
+                    <div class="champ champ-large">
+                        {{ formulaire.message.label_tag }}
+                        {{ formulaire.message }}
+                        {{ formulaire.message.errors }}
+                    </div>
+                </div>
+
+                <button type="submit" class="bouton bouton-submit">
+                    Envoyer la commande
+                </button>
+            </form>
+        </div>
+    </section>
+</main>
+
+</body>
+</html>

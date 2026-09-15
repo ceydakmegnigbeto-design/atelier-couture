@@ -1,0 +1,238 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Atelier Élégance</title>
+
+    <link
+        rel="stylesheet"
+        href="{% static 'boutique/style.css' %}"
+    >
+</head>
+<body>
+
+<header class="navbar">
+    <a href="{% url 'accueil' %}" class="logo">
+        Atelier Élégance
+    </a>
+
+    <button class="menu-toggle" id="menuToggle">
+        ☰
+    </button>
+
+    <nav id="menu">
+        <a href="{% url 'accueil' %}">Accueil</a>
+        <a href="#creations">Créations</a>
+        <a href="#a-propos">À propos</a>
+        <a href="#contact">Contact</a>
+    </nav>
+</header>
+
+{% if messages %}
+    <div class="messages">
+        {% for message in messages %}
+            <p>{{ message }}</p>
+        {% endfor %}
+    </div>
+{% endif %}
+
+<section class="hero">
+    <div class="hero-contenu">
+        <p class="sur-titre">L'art de la couture</p>
+
+        <h1>
+            Des vêtements uniques,
+            créés pour vous
+        </h1>
+
+        <p>
+            Découvrez des créations élégantes et originales,
+            confectionnées avec passion dans notre atelier.
+        </p>
+
+        <a href="#creations" class="bouton">
+            Découvrir nos créations
+        </a>
+    </div>
+</section>
+
+<section id="creations" class="section">
+    <div class="titre-section">
+        <p class="sur-titre">Notre collection</p>
+        <h2>Nos créations</h2>
+        <p>
+            Choisissez votre modèle préféré et envoyez-nous
+            votre demande de commande.
+        </p>
+    </div>
+
+    <form method="get" class="filtres">
+        <input
+            type="text"
+            name="recherche"
+            placeholder="Rechercher une création..."
+            value="{{ recherche }}"
+        >
+
+        <select name="categorie">
+            <option value="">Toutes les catégories</option>
+
+            {% for code, nom in categories %}
+                <option
+                    value="{{ code }}"
+                    {% if categorie_selectionnee == code %}
+                        selected
+                    {% endif %}
+                >
+                    {{ nom }}
+                </option>
+            {% endfor %}
+        </select>
+
+        <button type="submit">
+            Rechercher
+        </button>
+
+        <a href="{% url 'accueil' %}" class="annuler">
+            Réinitialiser
+        </a>
+    </form>
+
+    <div class="grille">
+        {% for creation in creations %}
+            <article class="carte">
+                <div class="image-container">
+                    <img
+                        src="{{ creation.image.url }}"
+                        alt="{{ creation.nom }}"
+                    >
+
+                    <span class="badge">
+                        {{ creation.categorie }}
+                    </span>
+                </div>
+
+                <div class="contenu">
+                    <h3>{{ creation.nom }}</h3>
+
+                    <p>
+                        {{ creation.description|truncatewords:20 }}
+                    </p>
+
+                    <strong>
+                        {{ creation.prix }} FCFA
+                    </strong>
+
+                    <div class="actions">
+                        <a
+                            class="bouton bouton-details"
+                            href="{% url 'detail_creation' creation.id %}"
+                        >
+                            Détails
+                        </a>
+
+                        <a
+                            class="bouton"
+                            href="{% url 'commander' creation.id %}"
+                        >
+                            Commander
+                        </a>
+                    </div>
+                </div>
+            </article>
+        {% empty %}
+            <div class="aucun-resultat">
+                <p>
+                    Aucune création ne correspond à votre recherche.
+                </p>
+
+                <a
+                    href="{% url 'accueil' %}"
+                    class="bouton"
+                >
+                    Voir toutes les créations
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+</section>
+
+<section id="a-propos" class="a-propos">
+    <div>
+        <p class="sur-titre">Notre savoir-faire</p>
+
+        <h2>La couture avec passion</h2>
+
+        <p>
+            Chaque vêtement est imaginé et réalisé avec attention.
+            Nous accordons une grande importance à la qualité,
+            aux finitions et aux souhaits de chaque client.
+        </p>
+
+        <p>
+            Pour une création personnalisée, contactez directement
+            notre atelier.
+        </p>
+    </div>
+
+    <div class="valeurs">
+        <div>
+            <span>✂</span>
+            <h3>Créations uniques</h3>
+            <p>Des modèles pensés avec originalité.</p>
+        </div>
+
+        <div>
+            <span>★</span>
+            <h3>Finitions soignées</h3>
+            <p>Un travail réalisé avec précision.</p>
+        </div>
+
+        <div>
+            <span>♥</span>
+            <h3>À votre écoute</h3>
+            <p>Vos envies sont au centre de notre travail.</p>
+        </div>
+    </div>
+</section>
+
+<section id="contact" class="contact">
+    <p class="sur-titre">Nous contacter</p>
+
+    <h2>Parlons de votre prochaine création</h2>
+
+    <p>
+        Téléphone :
+        <a href="tel:+2290193903638">
+            +229 01 93 90 36 38
+        </a>
+    </p>
+
+    <p>
+        WhatsApp :
+        <a href="https://wa.me/+2290193903638">
+            Nous écrire sur WhatsApp
+        </a>
+    </p>
+
+    <p>
+        Adresse : Cotonou, Bénin
+    </p>
+</section>
+
+<footer>
+    <p>© 2026 Atelier Élégance</p>
+    <p>Créé avec passion à Cotonou</p>
+</footer>
+
+<script src="{% static 'boutique/script.js' %}"></script>
+
+</body>
+</html>

@@ -1,0 +1,57 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Commande confirmée</title>
+
+    <link
+        rel="stylesheet"
+        href="{% static 'boutique/style.css' %}"
+    >
+</head>
+<body>
+
+<header class="navbar">
+    <h1>Atelier Élégance</h1>
+
+    <nav>
+        <a href="{% url 'accueil' %}">Accueil</a>
+    </nav>
+</header>
+
+<main class="confirmation">
+    <div class="confirmation-icon">✓</div>
+
+    <h2>Commande envoyée avec succès !</h2>
+
+   <p>
+    Merci pour votre commande.
+    Notre atelier vous contactera prochainement.
+</p>
+
+<p class="numero-commande">
+    Numéro de commande :
+    <strong>#{{ commande_id }}</strong>
+</p>
+
+    <p>
+        Gardez votre téléphone disponible pour recevoir notre appel.
+    </p>
+
+    <a
+        href="{% url 'accueil' %}"
+        class="bouton"
+    >
+        Retour aux créations
+    </a>
+</main>
+
+</body>
+</html>

@@ -1,0 +1,46 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Message envoyé</title>
+
+    <link
+        rel="stylesheet"
+        href="{% static 'boutique/style.css' %}"
+    >
+</head>
+<body>
+
+<header class="navbar">
+    <a href="{% url 'accueil' %}" class="logo">
+        Atelier Élégance
+    </a>
+</header>
+
+<main class="confirmation">
+    <div class="confirmation-icon">✓</div>
+
+    <h1>Message envoyé avec succès !</h1>
+
+    <p>
+        Merci de nous avoir contactés.
+    </p>
+
+    <p>
+        Notre atelier vous répondra prochainement.
+    </p>
+
+    <a href="{% url 'accueil' %}" class="bouton">
+        Retour à l'accueil
+    </a>
+</main>
+
+</body>
+</html>

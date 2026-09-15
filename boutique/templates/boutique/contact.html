@@ -1,0 +1,97 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Contact - Atelier Élégance</title>
+
+    <link
+        rel="stylesheet"
+        href="{% static 'boutique/style.css' %}"
+    >
+</head>
+<body>
+
+<header class="navbar">
+    <a href="{% url 'accueil' %}" class="logo">
+        Atelier Élégance
+    </a>
+
+    <nav>
+        <a href="{% url 'accueil' %}">
+            Accueil
+        </a>
+
+        <a href="{% url 'accueil' %}#creations">
+            Créations
+        </a>
+    </nav>
+</header>
+
+<main class="contact-page">
+    <section class="contact-introduction">
+        <p class="sur-titre">Écrivez-nous</p>
+
+        <h1>Parlons de votre projet</h1>
+
+        <p>
+            Vous avez une question, une idée de création
+            ou besoin d'informations ?
+        </p>
+
+        <p>
+            Remplissez le formulaire et notre atelier
+            vous répondra prochainement.
+        </p>
+
+        <div class="coordonnees">
+            <p>
+                <strong>Téléphone :</strong>
+                +229 0193903638
+            </p>
+
+            <p>
+                <strong>Adresse :</strong>
+                Cotonou, Bénin
+            </p>
+        </div>
+    </section>
+
+    <section class="contact-formulaire">
+        <div class="contact-card">
+            <h2>Envoyez-nous un message</h2>
+
+            <form method="post">
+                {% csrf_token %}
+
+                {{ formulaire.non_field_errors }}
+
+                {% for champ in formulaire %}
+                    <div class="champ">
+                        {{ champ.label_tag }}
+                        {{ champ }}
+
+                        {% if champ.errors %}
+                            <div class="erreurs">
+                                {{ champ.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+
+                <button type="submit" class="bouton">
+                    Envoyer le message
+                </button>
+            </form>
+        </div>
+    </section>
+</main>
+
+</body>
+</html>

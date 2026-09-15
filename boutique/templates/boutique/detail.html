@@ -1,0 +1,71 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{{ creation.nom }} - Atelier Élégance</title>
+
+    <link
+        rel="stylesheet"
+        href="{% static 'boutique/style.css' %}"
+    >
+</head>
+<body>
+
+<header class="navbar">
+    <h1>Atelier Élégance</h1>
+
+    <nav>
+        <a href="{% url 'accueil' %}">Accueil</a>
+        <a href="{% url 'accueil' %}#creations">
+            Créations
+        </a>
+    </nav>
+</header>
+
+<main class="detail-page">
+    <div class="detail-image">
+        <img
+            src="{{ creation.image.url }}"
+            alt="{{ creation.nom }}"
+        >
+    </div>
+
+    <div class="detail-contenu">
+        <p class="etiquette">
+            Création disponible
+        </p>
+
+        <h2>{{ creation.nom }}</h2>
+
+        <p class="detail-prix">
+            {{ creation.prix }} FCFA
+        </p>
+
+        <p class="detail-description">
+            {{ creation.description }}
+        </p>
+
+        <a
+            class="bouton"
+            href="{% url 'commander' creation.id %}"
+        >
+            Commander cette création
+        </a>
+
+        <br>
+
+        <a
+            class="retour"
+            href="{% url 'accueil' %}"
+        >
+            ← Retour aux créations
+        </a>
+    </div>
+</main>
+
+</body>
+</html>
