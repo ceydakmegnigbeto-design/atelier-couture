@@ -142,16 +142,17 @@ STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 
-# Email
-# https://docs.djangoproject.com/en/6.1/topics/email/#topic-email-configuration
-
-MAILERS = {
+STORAGES = {
     'default': {
-        'BACKEND': 'django.core.mail.backends.console.EmailBackend'
-        'whitenoise.storage.CompressedManifestStaticFilesStorage',
+        'BACKEND': 'django.core.files.storage.FileSystemStorage',
+    },
+
+    'staticfiles': {
+        'BACKEND': (
+            'whitenoise.storage.CompressedManifestStaticFilesStorage'
+        ),
     },
 }
+
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
-
-STATIC_URL = 'static/'
